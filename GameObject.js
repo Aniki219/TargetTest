@@ -14,6 +14,10 @@ class GameObject {
     this.sw = data.sw;
     this.sh = data.sh;
 
+    this.solid = false;
+    this.depth = 0;
+    this.destroy = false;
+
     gameObjects.push(this);
   }
 
@@ -23,7 +27,20 @@ class GameObject {
     rect(this.x, this.y, this.w, this.h);
   }
 
+  move() {
+
+  }
+
+  earlyUpdate() {}
+
+  update() {
+    this.draw();
+    this.move();
+  }
+
   static Update() {
-    gameObjects.forEach((o) => o.draw())
+    gameObjects.filter(o => !o.destroy);
+    gameObjects.sort((a,b) => (a.depth>b.depth)?-1:1);
+    gameObjects.forEach(o => o.update())
   }
 }

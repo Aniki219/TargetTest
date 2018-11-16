@@ -20,6 +20,7 @@ function draw() {
 
 function earlyUpdate() {
   background(200);
+  rigidbodies.forEach((r) => r.update());
 }
 
 function update() {
