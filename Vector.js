@@ -16,6 +16,12 @@ class Vector {
     return new Vector(x, y);
   }
 
+  round(places = 0) {
+    let val = pow(10, places);
+    this.x = round(this.x * val)/val;
+    this.y = round(this.y * val)/val;
+  }
+
   copy() {
     return new Vector(this.x, this.y);
   }

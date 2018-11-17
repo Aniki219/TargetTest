@@ -39,8 +39,8 @@ class GameObject {
   }
 
   static Update() {
-    gameObjects.filter(o => !o.destroy);
-    gameObjects.sort((a,b) => (a.depth>b.depth)?-1:1);
-    gameObjects.forEach(o => o.update())
+    gameObjects = gameObjects.filter(o => !o.destroy);
+    gameObjects = gameObjects.sort((a,b) => (a.depth>b.depth)?-1:1);
+    gameObjects.forEach(o => {o.update();});
   }
 }

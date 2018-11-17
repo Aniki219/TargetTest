@@ -1,4 +1,4 @@
-var gravity = new Vector(0,.1);
+var gravity = new Vector(0,.65);
 
 function placeFree(obj, vector) {
   let objRect = {x: vector.x, y: vector.y, w: obj.w, h: obj.h};
