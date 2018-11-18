@@ -21,6 +21,7 @@ function draw() {
 function earlyUpdate() {
   background(0,100,150);
   rigidbodies.forEach((r) => r.update());
+  gameObjects.forEach(o => {o.earlyUpdate();});
 }
 
 function update() {
@@ -29,5 +30,5 @@ function update() {
 }
 
 function lateUpdate() {
-
+  register.pressed = {};
 }

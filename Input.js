@@ -1,7 +1,13 @@
 var register = {};
+register.pressed = {};
+
+function registerUpdate() {
+  register.pressed = false;
+}
 
 function keyPressed() {
   register[keyCode] = true;
+  register.pressed[keyCode] = true;
 }
 
 function keyReleased() {

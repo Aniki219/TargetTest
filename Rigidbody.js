@@ -11,6 +11,7 @@ class Rigidbody {
 
     this.friction = 0.5;
     this.useGravity = true;
+    this.grounded = false;
 
     this.forces = [];
 
@@ -18,9 +19,9 @@ class Rigidbody {
   }
 
   move() {
-    this.vel.x *= (1 - this.friction);
+    this.vel.x *= (this.grounded) ? (1 - this.friction) : 0.85;
     this.acc = new Vector(0, 0);
-    if (this.isGrounded()) { this.vel.y = 0; };
+    if (this.grounded) { this.vel.y = 0; };
     this.forces.forEach(f => this.acc.add(f));
 
     this.vel.add(this.acc);
@@ -30,7 +31,7 @@ class Rigidbody {
     for (let ux = abs(this.vel.x); ux >= 0; ux -= res) {
       let x = ux * signx;
       let newPos = this.pos.plus(new Vector(x, 0));
-      if (placeFree(this.parent, newPos)) {
+      if (placeFree(this.parent.collider, newPos)) {
         this.pos = newPos;
         ux = -1;
       }
@@ -40,7 +41,7 @@ class Rigidbody {
     for (let uy = abs(this.vel.y); uy >= 0; uy -= res) {
       let y = uy * signy;
       let newPos = this.pos.plus(new Vector(0, y));
-      if (placeFree(this.parent, newPos)) {
+      if (placeFree(this.parent.collider, newPos)) {
         this.pos = newPos;
         uy = -1;
       }
@@ -51,18 +52,28 @@ class Rigidbody {
   }
 
   isGrounded() {
-    return (!placeFree(this.parent, this.pos.plus(new Vector(0, res))));
+    return (!placeFree(this.parent.collider, this.pos.plus(new Vector(0, res))));
   }
 
   update() {
     this.forces = [];
-
+    this.grounded = this.isGrounded();
+this.parent.collider.draw();
     if (this.useGravity) {
       this.forces.push(gravity);
     }
   }
 
-  addForce(f) {
-    this.forces.push(f);
+  addForce(arg1, arg2 = null) {
+    if (arg1 instanceof Vector) {
+      this.forces.push(arg1);
+    } else {
+      this.forces.push(new Vector(arg1, arg2));
+    }
+  }
+
+  zero() {
+    this.vel = Vector.zero();
+    this.acc = Vector.zero();
   }
 }

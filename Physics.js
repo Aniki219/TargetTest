@@ -1,11 +1,11 @@
-var gravity = new Vector(0,.65);
+var gravity = new Vector(0,.4);
 
-function placeFree(obj, vector) {
-  let objRect = {x: vector.x, y: vector.y, w: obj.w, h: obj.h};
+function placeFree(collider, vector) {
+  let objRect = {x: vector.x, y: vector.y, w: collider.w, h: collider.h};
   let free = true;
 
   solids().forEach((s) => {
-    if (collision(objRect, s)) {
+    if (collision(objRect, s.collider)) {
       free = false;
     }
   })

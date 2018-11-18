@@ -83,4 +83,8 @@ class Vector {
     this.x *= scalar;
     this.y *= scalar;
   }
+
+  static zero() {
+    return new Vector(0, 0);
+  }
 }

@@ -18,6 +18,8 @@ class GameObject {
     this.depth = 0;
     this.destroy = false;
 
+    this.collider = new Collider({x: this.x, y: this.y, w: this.w, h: this.h})
+
     gameObjects.push(this);
   }
 
@@ -31,11 +33,18 @@ class GameObject {
 
   }
 
-  earlyUpdate() {}
+  earlyUpdate() {
+
+  }
 
   update() {
+    this.collider.checkTouching();
     this.draw();
     this.move();
+
+    if (this.oneway) {
+      this.solid = (player.rb.vel.y >= 0 && player.y + player.h <= this.y);
+    }
   }
 
   static Update() {
