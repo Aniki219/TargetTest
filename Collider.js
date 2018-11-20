@@ -4,6 +4,7 @@ class Collider {
     this.y = data.y;
     this.w = data.w;
     this.h = data.h;
+    this.origin = Vector.zero();
 
     this.solid = false;
     this.oneway = false;

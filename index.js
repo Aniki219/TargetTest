@@ -8,7 +8,7 @@ var classes = {
 }
 
 function setup() {
-  createCanvas(640,480);
+  createCanvas(960,640);
   room = new Room();
 }
 
@@ -19,7 +19,8 @@ function draw() {
 }
 
 function earlyUpdate() {
-  background(0,100,150);
+  //background(0,100,150);
+  image(moonBackground, -50*player.x/width,10*player.y/height);
   rigidbodies.forEach((r) => r.update());
   gameObjects.forEach(o => {o.earlyUpdate();});
 }
@@ -31,4 +32,8 @@ function update() {
 
 function lateUpdate() {
   register.pressed = {};
+  var fps = frameRate();
+  fill(255);
+  stroke(0);
+  text("FPS: " + fps.toFixed(2), 10, height - 10);
 }

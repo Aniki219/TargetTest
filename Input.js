@@ -18,6 +18,10 @@ function getKey(name) {
   return (register[name.charCodeAt(0)]);
 }
 
+function getKeyPressed(name) {
+  return (register.pressed[name.charCodeAt(0)]);
+}
+
 function mousePressed() {
   if (mouseOnScreen()) {
     register["mouse" + mouseButton] = true;

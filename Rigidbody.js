@@ -10,6 +10,7 @@ class Rigidbody {
     this.acc = new Vector(0,0);
 
     this.friction = 0.5;
+    this.airfriction = 0.85;
     this.useGravity = true;
     this.grounded = false;
 
@@ -19,7 +20,7 @@ class Rigidbody {
   }
 
   move() {
-    this.vel.x *= (this.grounded) ? (1 - this.friction) : 0.85;
+    this.vel.x *= (this.grounded) ? (1 - this.friction) : this.airfriction;
     this.acc = new Vector(0, 0);
     if (this.grounded) { this.vel.y = 0; };
     this.forces.forEach(f => this.acc.add(f));
@@ -58,7 +59,7 @@ class Rigidbody {
   update() {
     this.forces = [];
     this.grounded = this.isGrounded();
-this.parent.collider.draw();
+
     if (this.useGravity) {
       this.forces.push(gravity);
     }
