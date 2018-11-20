@@ -54,7 +54,8 @@ class GameObject {
   }
 
   earlyUpdate() {
-
+    this.collider.x = this.x;
+    this.collider.y = this.y;
   }
 
   update() {

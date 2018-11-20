@@ -11,17 +11,18 @@ class Kunai extends GameObject {
     this.collider.h = 15;
     this.collider.origin = new Vector(9,8);
 
-    this.vel = Vector.fromAngle(speed, angle);
+    this.rb = new Rigidbody(this);
+    this.rb.vel = Vector.fromAngle(speed, angle);
+    this.rb.useGravity = false;
+    this.rb.airfriction = 1;
+    this.rb.friction = 0;
 
     this.sprite = new Sprite(kunaiImg, 1, 0, 32, 32, this);
   }
 
   move() {
-    this.x += this.vel.x;
-    this.y += this.vel.y;
-    this.collider.x = this.x;
-    this.collider.y = this.y;
+    this.rb.move();
     this.destroy = (this.collider.right || this.collider.left ||
-                    this.collider.top || this.collider.bottom);
+                    this.collider.up || this.collider.down);
   }
 }

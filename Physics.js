@@ -4,7 +4,8 @@ function placeFree(collider, vector) {
   let objRect = {x: vector.x, y: vector.y, w: collider.w, h: collider.h};
   let free = true;
 
-  solids().forEach((s) => {
+  let testagainst = gameObjects.filter((s) => (s.solid && ((s.x-vector.x)*(s.x-vector.x)+(s.y-vector.y)*(s.y-vector.y))<10000));
+  testagainst.forEach((s) => {
     if (collision(objRect, s.collider)) {
       free = false;
     }
@@ -13,13 +14,11 @@ function placeFree(collider, vector) {
 }
 
 function collision(rect1, rect2) {
-  if (rect1.x < rect2.x + rect2.w &&
-      rect1.x + rect1.w > rect2.x &&
-      rect1.y < rect2.y + rect2.h &&
-      rect1.y + rect1.h > rect2.y) {
-        return true;
-      }
-  return false;
+  if (rect1.x >= rect2.x + rect2.w) {return false;}
+  if (rect1.x + rect1.w <= rect2.x) {return false;}
+  if (rect1.y >= rect2.y + rect2.h) {return false;}
+  if (rect1.y + rect1.h <= rect2.y) {return false;}
+  return true;
 }
 
 function solids() {

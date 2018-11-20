@@ -2,10 +2,10 @@ var rigidbodies = [];
 var res = 0.1;
 
 class Rigidbody {
-  constructor(parent, x, y, w, h) {
+  constructor(parent) {
     this.parent = parent;
 
-    this.pos = new Vector(x, y);
+    this.pos = new Vector(this.parent.x, this.parent.y);
     this.vel = new Vector(0,0);
     this.acc = new Vector(0,0);
 
@@ -49,7 +49,8 @@ class Rigidbody {
     }
 
     this.pos.round();
-    return [this.pos.x, this.pos.y];
+    this.parent.x = this.pos.x;
+    this.parent.y = this.pos.y;
   }
 
   isGrounded() {
