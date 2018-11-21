@@ -1,11 +1,21 @@
 function preload() {
-  imagesArray = {
-    'images/castleSmartTile.png' : loadImage('images/castleSmartTile.png'),
-    'images/castleTileSet.png' : loadImage('images/castleTileSet.png'),
-    'images/grassSmartTile.png' : loadImage('images/grassSmartTile.png'),
+
+  var prefix = "";
+
+  try {
+    loadImage("images/playerImg");
+    sdfsdf
+  } catch (e) {
+    prefix = "/Aniki219/TargetTest/blob/master/"
   }
-  playerImg = loadImage("images/playerImg.png");
-  moonBackground = loadImage("images/moonBackground.png");
-  kunaiImg = loadImage("images/kunai.png")
-  targetImg = loadImage("images/target.png")
+
+  imagesArray = {
+    'images/castleSmartTile.png' : loadImage(prefix + 'images/castleSmartTile.png'),
+    'images/castleTileSet.png' : loadImage(prefix + 'images/castleTileSet.png'),
+    'images/grassSmartTile.png' : loadImage(prefix + 'images/grassSmartTile.png'),
+  }
+  playerImg = loadImage(prefix + "images/playerImg.png");
+  moonBackground = loadImage(prefix + "images/moonBackground.png");
+  kunaiImg = loadImage(prefix + "images/kunai.png")
+  targetImg = loadImage(prefix + "images/target.png")
 }
