@@ -6,7 +6,7 @@ function preload() {
     loadImage("images/playerImg");
     sdfsdf
   } catch (e) {
-    prefix = "/Aniki219/TargetTest/raw/master/"
+    prefix = "raw.githubusercontent.com/Aniki219/TargetTest/master/"
   }
 
   imagesArray = {
