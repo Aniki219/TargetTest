@@ -1,13 +1,6 @@
 function preload() {
 
-  var prefix = "";
-
-  try {
-    loadImage("images/playerImg");
-    sdfsdf
-  } catch (e) {
-    prefix = "https://raw.githubusercontent.com/Aniki219/TargetTest/master/"
-  }
+  var prefix = "https://raw.githubusercontent.com/Aniki219/TargetTest/master/"
 
   imagesArray = {
     'images/castleSmartTile.png' : loadImage(prefix + 'images/castleSmartTile.png'),
