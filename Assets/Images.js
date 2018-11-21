@@ -11,7 +11,7 @@ function preload() {
 
   imagesArray = {
     'images/castleSmartTile.png' : loadImage(prefix + 'images/castleSmartTile.png'),
-    'images/castleTileSet.png' : loadImage(prefix + 'images/castleTileSet.png'),
+    'images/castleTileSet.png' : loadImage(prefix + 'images/castleTileset.png'),
     'images/grassSmartTile.png' : loadImage(prefix + 'images/grassSmartTile.png'),
   }
   playerImg = loadImage(prefix + "images/playerImg.png");
