@@ -1,10 +1,13 @@
 var room;
+var targets;
+var timer = 0;
 
 var classes = {
   'Vector': Vector,
   'Wall': Wall,
   'Support': Support,
   'Player': Player,
+  'Target': Target,
 }
 
 function setup() {
@@ -17,11 +20,13 @@ function setup() {
 
 function draw() {
   push()
-    translate(constrain(width/2-player.x,-960+width,0), constrain(height/2-player.y,-640+height,0));
+    translate(constrain(width/2-player.x,-1152+width,0), constrain(height/2-player.y,-800+height,0));
     earlyUpdate();
     update();
     lateUpdate();
-  pop()
+  pop();
+  targets = gameObjects.filter(go => go instanceof Target).length;
+  if (targets > 0) timer++;
   drawUI();
 }
 
@@ -43,7 +48,8 @@ function lateUpdate() {
 function drawUI() {
   fill(255);
   text(player.state,10,10);
-  text("Charge:" + player.chargeValue, 10, 30);
+  text("Time:" + timer, 10, 50);
+  text("Targets:" + targets, 10, 30);
 }
 
 jQuery.fn.center = function () {

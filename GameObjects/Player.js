@@ -1,11 +1,3 @@
-var BACKDRIFT_PENALTY = 0.9;
-var THROW_COOLDOWN = 25;
-var WALLJUMP_DECAY = 1;
-var MAXWALL_JUMPS = 5000;
-var MOVEABLE_STATES = ["move", "jump", "fall", "land", "wallslide", "airChargeThrow"];
-var PHYSICS_STATES = [...MOVEABLE_STATES, "createKnife", "airWaitAnim"];
-var THROWABLE_STATES = ["move", "jump", "fall"];
-var PLAYER_SCALE = 1.25;
 var player;
 
 class Player extends GameObject{
@@ -16,7 +8,7 @@ class Player extends GameObject{
 
     this.collider.w = round(17 * PLAYER_SCALE);
     this.collider.h = round(34 * PLAYER_SCALE);
-    this.collider.origin = new Vector(round(14 * PLAYER_SCALE), round(13 * PLAYER_SCALE));
+    this.collider.origin = new Vector(round(16 * PLAYER_SCALE), round(13 * PLAYER_SCALE));
 
     this.speed = 2;
     this.jumpHeight = 9;
@@ -72,7 +64,7 @@ class Player extends GameObject{
     this.sprite.xscale = this.facing;
 
     //charge effect
-    if (this.chargeValue > 10 && this.chargeValue % 2) {
+    if (this.chargeValue > CHARGE_FRAMES && this.chargeValue % 2) {
       playerImg.filter(INVERT);
       this.inverted = !this.inverted;
     }
@@ -162,13 +154,16 @@ class Player extends GameObject{
     if (this.facing == -1) { knifeAngle = PI - knifeAngle; }
     let xx = 15*cos(knifeAngle) + ((this.facing==-1)?4:10);
     let yy = 15*sin(knifeAngle) + 2;
-    new Kunai(this.x + xx, this.y + yy, knifeAngle, 20);
+    new Kunai(this.x + xx, this.y + yy, knifeAngle, 18);
     if (this.rb.grounded) {
       this.changeState("waitAnim");
-    } else if (this.chargeValue > 10) {
+    } else if (this.chargeValue >= CHARGE_FRAMES) {
       this.changeState("airWaitAnim");
       this.rb.zero();
-      this.rb.addForce(Vector.fromAngle(6, PI + knifeAngle));
+      let forceVec = Vector.fromAngle(10, PI + knifeAngle);
+      forceVec.x = constrain(forceVec.x,-6,6);
+      forceVec.y = constrain(forceVec.y,-6,0);
+      this.rb.addForce(forceVec);
     }
     this.chargeValue = 0;
   }
@@ -188,6 +183,15 @@ class Player extends GameObject{
     } else {
       this.changeState("throw")
     }
+    let knifeAngle = 0;
+    if (register[UP_ARROW]) { knifeAngle = -PI/2; }
+    if (register[DOWN_ARROW]) { knifeAngle = PI/2; }
+    if (this.facing == 1 && register[RIGHT_ARROW] || this.facing==-1 && register[LEFT_ARROW]) {knifeAngle /= 2}
+    if (this.facing == -1) { knifeAngle = PI - knifeAngle; }
+    let xx = 25*cos(knifeAngle) + ((this.facing==-1)?4:10);
+    let yy = 25*sin(knifeAngle) + 20;
+    fill(0,0,255)
+    ellipse(this.x + xx,this.y + yy,10,10)
   }
 
   move() {

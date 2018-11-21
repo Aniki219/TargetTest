@@ -28,3 +28,11 @@ function solids() {
 function sign(num) {
   return (num >= 0)?1:-1;
 }
+
+function touching(obj, type) {
+  let objs = gameObjects.filter(g => g instanceof type);
+  for (let o of objs) {
+    if (collision(obj, o)) {return true;}
+  }
+  return false;
+}
